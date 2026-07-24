@@ -4,7 +4,9 @@
 
 > Paste a URL or a local file and Claude *watches* it — **scene-change frame extraction** (one frame per cut instead of every-N-seconds), a **0-10s hook microscope** (dense frames + word-level Whisper on the opening, where every video earns or loses your attention), and **optional Obsidian auto-save** so a watched video becomes a connected wiki entry without copy-paste.
 
-> 🎥 **This skill started as a video on my YouTube, [@TaoufikAI](https://www.youtube.com/@TaoufikAI).** I build AI tools like `/watch` in public and post how I make them. If this is useful to you, [that's where the next one drops](https://www.youtube.com/@TaoufikAI?sub_confirmation=1).
+**▶ Watch the skill in action** (this video is where `/watch` was born):
+
+[![This Claude Skill Watches Videos So You Don't Have To](https://img.youtube.com/vi/iYG5tiFfK3E/maxresdefault.jpg)](https://www.youtube.com/watch?v=iYG5tiFfK3E&t=43s)
 
 Claude Code:
 ```
@@ -37,7 +39,7 @@ Claude can read a webpage, run a script, browse a repo. What it can't do, out of
 With Claude Video `/watch` you can paste a URL or a local path, ask a question, and Claude downloads the video, extracts frames at an auto-scaled rate, pulls a timestamped transcript (free captions when available, Whisper API as fallback), and `Read`s every frame as an image. By the time it answers, it has *seen* the video and *heard* the audio.
 
 ```
-/watch https://youtu.be/dQw4w9WgXcQ what happens at the 30 second mark?
+/watch https://youtu.be/iYG5tiFfK3E how does this creator hook the viewer in the first 45 seconds?
 ```
 
 ## Why this exists
@@ -144,7 +146,7 @@ Captions cover the majority of public videos for free. The Whisper fallback only
 ## Usage
 
 ```
-/watch https://youtu.be/dQw4w9WgXcQ what happens at the 30 second mark?
+/watch https://youtu.be/iYG5tiFfK3E how does this creator hook the viewer in the first 45 seconds?
 /watch https://www.tiktok.com/@user/video/123 summarize this
 /watch ~/Movies/screen-recording.mp4 when does the UI break?
 /watch https://vimeo.com/123 what tools does she mention?
