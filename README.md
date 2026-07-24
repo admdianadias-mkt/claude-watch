@@ -209,9 +209,7 @@ I'm Taoufik. I build AI agents and tools like `/watch`, and I make videos about 
 
 ## Credits
 
-`/watch` is built on **[claude-video](https://github.com/bradautomates/claude-video)** by **[Bradley Bonanno](https://github.com/bradautomates)**. The original `/watch` skill — the yt-dlp download, the ffmpeg pipeline, the Groq/OpenAI Whisper backends, the install flow, and the SessionStart hook — is his work, released under the MIT license. This repo extends it with scene-change frame extraction, the 0-10s hook microscope, the structured `report.md`, and Obsidian auto-save.
-
-Original author and copyright holder: **Bradley Bonanno** (see [LICENSE](LICENSE)). Contributors are listed in [AUTHORS.md](AUTHORS.md).
+Built on the original `claude-video` project, MIT licensed. Full attribution in [AUTHORS.md](AUTHORS.md) and [LICENSE](LICENSE).
 
 ## Open source
 
