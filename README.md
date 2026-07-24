@@ -4,6 +4,8 @@
 
 > Paste a URL or a local file and Claude *watches* it — **scene-change frame extraction** (one frame per cut instead of every-N-seconds), a **0-10s hook microscope** (dense frames + word-level Whisper on the opening, where every video earns or loses your attention), and **optional Obsidian auto-save** so a watched video becomes a connected wiki entry without copy-paste.
 
+> 🎥 **This skill started as a video on my YouTube, [@TaoufikAI](https://www.youtube.com/@TaoufikAI).** I build AI tools like `/watch` in public and post how I make them. If this is useful to you, [that's where the next one drops](https://www.youtube.com/@TaoufikAI?sub_confirmation=1).
+
 Claude Code:
 ```
 /plugin marketplace add taoufik123-collab/claude-watch
@@ -200,6 +202,10 @@ bash scripts/build-skill.sh      # → dist/watch.skill
 Releasing: tag `vX.Y.Z`, push the tag. The workflow builds `dist/watch.skill` and attaches it to the GitHub release.
 
 See [CHANGELOG.md](CHANGELOG.md) for version history.
+
+## Who made this
+
+I'm Taoufik. I build AI agents and tools like `/watch`, and I make videos about how I build them: **[@TaoufikAI on YouTube](https://www.youtube.com/@TaoufikAI)**. If this skill saved you time, the channel is where the next ones show up first. [Subscribe here.](https://www.youtube.com/@TaoufikAI?sub_confirmation=1)
 
 ## Credits
 
