@@ -1,0 +1,739 @@
+<title>Arsenal Terra Negra</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#F1F2EC; --surface:#FBFBF7; --raise:#E8EAE0;
+  --ink:#1B1A15; --ink-soft:#55534A; --ink-faint:#83806E;
+  --line:#D4D6CA; --line-soft:#E4E6DB;
+  --accent:#3D6B4F; --accent-soft:#E2ECE4;
+  --ochre:#8F6717; --ochre-soft:#EFE7D1;
+  --warn:#8E3E27; --warn-soft:#F5E4DD;
+}
+:root[data-theme="dark"]{
+  --ground:#131208; --surface:#1C1B12; --raise:#252418;
+  --ink:#EFEDE1; --ink-soft:#A9A694; --ink-faint:#7B7967;
+  --line:#34321F; --line-soft:#292818;
+  --accent:#8CBA99; --accent-soft:#1E2B22;
+  --ochre:#DCAC53; --ochre-soft:#2B2413;
+  --warn:#D07E63; --warn-soft:#2E1B13;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#131208; --surface:#1C1B12; --raise:#252418;
+    --ink:#EFEDE1; --ink-soft:#A9A694; --ink-faint:#7B7967;
+    --line:#34321F; --line-soft:#292818;
+    --accent:#8CBA99; --accent-soft:#1E2B22;
+    --ochre:#DCAC53; --ochre-soft:#2B2413;
+    --warn:#D07E63; --warn-soft:#2E1B13;
+  }
+}
+*{box-sizing:border-box}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:"Source Sans 3",ui-sans-serif,system-ui,sans-serif;
+  font-size:17px; line-height:1.62; margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px; margin:0 auto; padding:0 22px 96px}
+h1,h2,h3,h4{font-family:Petrona,Georgia,"Times New Roman",serif; text-wrap:balance; margin:0}
+p{margin:0}
+a{color:var(--accent)}
+strong{font-weight:600}
+em{font-style:italic}
+
+/* ---- header ---- */
+header{padding:64px 0 34px; border-bottom:2px solid var(--ink)}
+.eyebrow{
+  font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ochre); font-weight:600; margin-bottom:16px;
+}
+h1{font-size:clamp(40px,7vw,62px); line-height:1.03; font-weight:700; letter-spacing:-.015em}
+.lede{
+  font-family:Petrona,Georgia,serif; font-size:20px; line-height:1.5;
+  color:var(--ink-soft); margin-top:18px; max-width:60ch;
+}
+.meta{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin-top:26px;
+  font-size:13px; color:var(--ink-faint);
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+}
+.meta b{color:var(--ink-soft); font-weight:600}
+
+/* ---- sections ---- */
+section{padding-top:62px}
+.sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:8px}
+.sec-num{
+  font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+  color:var(--ochre); letter-spacing:.06em; padding-top:6px;
+}
+h2{font-size:clamp(27px,4vw,35px); font-weight:600; letter-spacing:-.01em}
+.sec-sub{color:var(--ink-soft); margin:10px 0 30px; max-width:66ch}
+h3{font-size:21px; font-weight:600; margin-bottom:8px}
+.prose p+p{margin-top:15px}
+.prose{max-width:66ch}
+
+/* ---- method notice ---- */
+.notice{
+  border:1px solid var(--warn); border-left-width:5px;
+  background:var(--warn-soft); padding:24px 26px; margin-top:36px;
+  border-radius:3px;
+}
+.notice h3{color:var(--warn); font-size:19px}
+.notice p{color:var(--ink); margin-top:10px}
+.notice p+p{margin-top:12px}
+.blocklist{
+  font-family:"JetBrains Mono",monospace; font-size:12.5px;
+  margin-top:16px; display:grid; gap:3px;
+  color:var(--ink-soft);
+}
+.blocklist span b{color:var(--warn); font-weight:600}
+
+/* ---- confidence table ---- */
+.tblwrap{overflow-x:auto; margin-top:26px; border:1px solid var(--line); border-radius:3px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:14.5px; min-width:520px}
+th,td{text-align:left; padding:11px 15px; border-bottom:1px solid var(--line-soft); vertical-align:top}
+thead th{
+  background:var(--raise); font-family:"Source Sans 3",sans-serif;
+  font-size:11.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:600; border-bottom:1px solid var(--line);
+}
+tbody tr:last-child td{border-bottom:none}
+td.num{font-family:"JetBrains Mono",monospace; font-variant-numeric:tabular-nums; color:var(--ochre); font-weight:600; white-space:nowrap}
+.tag{display:inline-block; font-size:11.5px; font-weight:600; padding:2px 8px; border-radius:2px; white-space:nowrap}
+.t-hi{background:var(--accent-soft); color:var(--accent)}
+.t-lo{background:var(--raise); color:var(--ink-faint)}
+.t-warn{background:var(--warn-soft); color:var(--warn)}
+
+/* ---- competitors ---- */
+.comp{border-top:1px solid var(--line); padding:24px 0}
+.comp:first-of-type{border-top:2px solid var(--ink)}
+.comp-top{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px}
+.comp h3{margin:0}
+.comp-scale{
+  font-family:"JetBrains Mono",monospace; font-size:12.5px;
+  color:var(--ochre); font-variant-numeric:tabular-nums;
+}
+.comp p{margin-top:10px; color:var(--ink-soft); max-width:66ch}
+.lesson{
+  margin-top:14px; padding-left:16px; border-left:3px solid var(--accent);
+  color:var(--ink); font-family:Petrona,Georgia,serif; font-size:17.5px;
+  max-width:62ch;
+}
+.lesson b{
+  display:block; font-family:"Source Sans 3",sans-serif; font-size:11px;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--accent);
+  margin-bottom:4px; font-weight:600;
+}
+
+/* ---- archetypes ---- */
+.arch-grid{display:grid; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:30px; border-radius:3px; overflow:hidden}
+@media(min-width:660px){.arch-grid{grid-template-columns:1fr 1fr}}
+.arch{background:var(--surface); padding:20px 22px; display:flex; flex-direction:column; gap:8px}
+.arch-id{
+  font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+  color:var(--ochre); letter-spacing:.05em;
+}
+.arch h4{font-size:18px; font-weight:600; line-height:1.25}
+.arch .sig{font-size:12.5px; color:var(--ink-faint); font-style:italic}
+.arch .why{font-size:14.5px; color:var(--ink-soft); line-height:1.55}
+.excl{
+  align-self:flex-start; margin-top:2px; font-size:11px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase;
+  color:var(--accent); background:var(--accent-soft);
+  padding:3px 9px; border-radius:2px;
+}
+
+/* ---- scripts ---- */
+.script{
+  border:1px solid var(--line); border-radius:3px; background:var(--surface);
+  margin-top:26px; overflow:hidden;
+}
+.script-head{padding:20px 24px 16px; border-bottom:1px solid var(--line-soft)}
+.script-id{
+  font-family:"JetBrains Mono",monospace; font-size:26px; font-weight:600;
+  color:var(--ochre); line-height:1; float:left; margin:2px 14px 0 0;
+  font-variant-numeric:tabular-nums;
+}
+.script-head h3{font-size:20px; line-height:1.28; overflow:hidden}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; clear:both}
+.chip{
+  font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:2px;
+  background:var(--raise); color:var(--ink-soft); white-space:nowrap;
+}
+.chip.arch-chip{background:var(--ochre-soft); color:var(--ochre); font-family:"JetBrains Mono",monospace}
+.chip.disc{background:var(--accent-soft); color:var(--accent)}
+.beats{display:grid; grid-template-columns:auto 1fr; gap:0}
+.beats > div{padding:11px 0; border-bottom:1px solid var(--line-soft)}
+.beats > div:nth-last-child(-n+2){border-bottom:none}
+.bt{
+  font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600;
+  color:var(--ochre); font-variant-numeric:tabular-nums; white-space:nowrap;
+  padding-left:24px !important; padding-right:18px !important;
+}
+.bx{font-size:15.5px; line-height:1.55; color:var(--ink); padding-right:24px !important}
+.bx em{color:var(--ink-faint); font-size:14.5px}
+.script-note{
+  padding:15px 24px; background:var(--raise);
+  border-top:1px solid var(--line-soft); font-size:14.5px; color:var(--ink-soft);
+}
+.script-note b{
+  font-family:"Source Sans 3",sans-serif; font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--accent); font-weight:600;
+  margin-right:9px;
+}
+.script-note.crit b{color:var(--warn)}
+
+/* ---- plan ---- */
+.weeks{display:grid; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:28px; border-radius:3px; overflow:hidden}
+@media(min-width:660px){.weeks{grid-template-columns:repeat(4,1fr)}}
+.week{background:var(--surface); padding:18px 20px}
+.week b{
+  display:block; font-family:"JetBrains Mono",monospace; font-size:12px;
+  color:var(--ochre); letter-spacing:.05em; margin-bottom:8px;
+}
+.week .ids{font-family:"JetBrains Mono",monospace; font-size:17px; font-weight:600; color:var(--ink); margin-bottom:7px}
+.week p{font-size:14px; color:var(--ink-soft); line-height:1.5}
+
+footer{margin-top:70px; padding-top:26px; border-top:2px solid var(--ink); font-size:13.5px; color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+footer p+p{margin-top:9px}
+::selection{background:var(--accent-soft)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+<div class="wrap">
+<header>
+<div class="eyebrow">Benchmark competitivo · Ciências Humanas · ENEM</div>
+<h1>Arsenal Terra Negra</h1>
+<p class="lede">O mapa dos seis concorrentes que dominam Humanas no Brasil, os doze arquétipos estruturais por trás do que viraliza, e trinta e dois roteiros prontos para produção — cada um ancorado num ativo que a Terra Negra tem e eles não.</p>
+<div class="meta">
+<span><b>32</b> roteiros</span><span><b>12</b> arquétipos</span><span><b>6</b> concorrentes</span><span><b>4</b> disciplinas</span>
+</div>
+</header>
+<section id="metodo"><div class="sec-head"><span class="sec-num">§1</span><h2>Como este documento foi feito</h2></div>
+<p class="sec-sub">A parte mais importante da página, porque muda o quanto você deve confiar em cada seção seguinte.</p>
+<div class="notice">
+<h3>Este benchmark foi produzido sem assistir aos vídeos</h3>
+<p>A skill <code>/watch</code> está funcional e o pipeline foi montado por inteiro — <strong>yt-dlp</strong> instalado, <strong>ffmpeg 7.0.2</strong> instalado, scripts prontos. O que faltou foi rede: o ambiente de execução bloqueia todo o egress.</p>
+<div class="blocklist">
+<span>www.youtube.com &nbsp;→&nbsp; <b>403 CONNECT (policy denial)</b></span>
+<span>www.tiktok.com &nbsp;&nbsp;→&nbsp; <b>403</b></span>
+<span>www.instagram.com →&nbsp; <b>403</b></span>
+<span>thebranding.ai &nbsp;&nbsp;→&nbsp; <b>403</b></span>
+</div>
+<p>A tentativa foi repetida e o resultado foi idêntico. <strong>A referência <code>thebranding.ai</code> não pôde ser consultada</strong> — nada nesta página deriva dela. Se ela é central para você, é o primeiro gap a fechar.</p>
+</div>
+<div class="tblwrap"><table><thead><tr><th>Camada</th><th>Origem</th><th>Confiança</th></tr></thead><tbody>
+<tr><td><strong>Quem são os concorrentes</strong></td><td>Pesquisa web real, fontes citadas</td><td><span class="tag t-hi">Alta</span></td></tr>
+<tr><td><strong>Números de audiência</strong></td><td>Pesquisa web real</td><td><span class="tag t-hi">Alta</span></td></tr>
+<tr><td><strong>Assinatura de formato de cada canal</strong></td><td>Descrição pública dos canais</td><td><span class="tag ">Média</span></td></tr>
+<tr><td><strong>Os 12 arquétipos estruturais</strong></td><td>Padrões consolidados de short-form</td><td><span class="tag t-warn">Inferida</span></td></tr>
+<tr><td><strong>Os 32 roteiros</strong></td><td>Construção autoral sobre o acima</td><td><span class="tag t-lo">Autoral</span></td></tr>
+</tbody></table></div>
+<div class="prose" style="margin-top:26px">
+<h3>O que isto não é</h3>
+<p>Não é engenharia reversa. Engenharia reversa exige extrair o corte real, o beat real, a palavra que caiu no frame real. Isso não aconteceu. Os arquétipos do §3 são padrões que reconheço como dominantes no formato — não medições das peças dos concorrentes. <strong>Trate-os como hipótese testável, não como validados.</strong></p>
+<p style="margin-top:15px">Para converter hipótese em medição, rode a skill localmente, onde o YouTube é acessível:</p>
+</div>
+<div class="tblwrap" style="margin-top:16px"><table><tbody><tr><td style="font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;color:var(--ink-soft)">/plugin marketplace add taoufik123-collab/claude-watch<br>/plugin install watch@claude-watch<br><br><span style="color:var(--accent)">/watch &lt;url-do-concorrente&gt; extraia a estrutura exata: corte a corte,<br>o que está na tela em cada beat dos primeiros 10s, quando entra a<br>primeira troca de enquadramento, onde está o loop de retenção, e<br>onde entra o CTA</span></td></tr></tbody></table></div>
+</section>
+<section id="contexto"><div class="sec-head"><span class="sec-num">§2</span><h2>Os quatro ativos que ninguém copia</h2></div>
+<p class="sec-sub">Não adianta imitar formato sem apoiar no que só a Terra Negra tem. Tudo no §4 se ancora em um destes.</p>
+<div class="arch-grid">
+<div class="arch"><span class="arch-id">01</span><h4>Expedição e campo real</h4><p class="why">Concorrente nenhum da lista grava geografia <em>no lugar</em>. Um vídeo sobre desertificação gravado no sertão não é reproduzível por um canal de estúdio. É o maior ativo desperdiçado se ficar parado no acervo.</p></div>
+<div class="arch"><span class="arch-id">02</span><h4>Vinte anos de sala presencial</h4><p class="why">Vocês sabem <em>qual erro o aluno comete</em>, não só qual é a resposta. É o combustível do arquétipo de autópsia de erro — e não se compra.</p></div>
+<div class="arch"><span class="arch-id">03</span><h4>Selo ScienceVlogs Brasil</h4><p class="why">Autoridade científica formal num nicho onde boa parte do concorrente é entretenimento. Diferencial decisivo em tema polêmico.</p></div>
+<div class="arch"><span class="arch-id">04</span><h4>Quatro disciplinas sob o mesmo teto</h4><p class="why">Os concorrentes são majoritariamente monodisciplinares — história, sobretudo. Conexão Filosofia↔Sociologia↔História↔Geografia numa peça só é território livre.</p></div>
+</div>
+<div class="prose" style="margin-top:30px">
+<h3>Onde a Terra Negra está perdendo</h3>
+<p>Ancoragem em evento — a Débora Aladim domina — e quadro recorrente nomeado, onde o Eduardo Bueno domina. Ambos são recuperáveis: são decisões editoriais, não ativos. Nenhum dos dois exige investimento novo.</p>
+</div>
+</section>
+<section id="concorrentes"><div class="sec-head"><span class="sec-num">§3</span><h2>Mapa competitivo</h2></div>
+<p class="sec-sub">Seis concorrentes identificados por pesquisa pública. Os números são os reportados pelas fontes — revalide antes de levar a apresentação.</p>
+<div class="comp"><div class="comp-top"><h3>Débora Aladim</h3><span class="comp-scale">+4,3 mi seguidores · 4 mi views num vídeo</span></div>
+<p>Historiadora (UFMG), produz videoaulas desde 2013. Comentário com humor sobre o ENEM e <strong>reação à prova em tempo real</strong> — no ENEM 2024 dominou o X ao anunciar que estava com a prova em mãos.</p>
+<div class="lesson"><b>Lição para a Terra Negra</b>O ativo não é o conteúdo, é o <em>timing</em>. A janela de 48h do ENEM vale mais que três meses de posting regular.</div></div>
+<div class="comp"><div class="comp-top"><h3>Se Liga Nessa História</h3><span class="comp-scale">+1 mi inscritos</span></div>
+<p>Professor Walter Solla + produtor Ary Neto. História brasileira e mundial <strong>dramatizada</strong>, com atualidades, Sociologia e Filosofia.</p>
+<div class="lesson"><b>Lição para a Terra Negra</b>A dupla professor+produtor separa quem sabe de quem edita. Dramatização não é enfeite — é o que retém em tema árido.</div></div>
+<div class="comp"><div class="comp-top"><h3>Eduardo Bueno · Buenas Ideias</h3><span class="comp-scale">+600 mil inscritos</span></div>
+<p>Pesquisador e escritor. Quadros nomeados e recorrentes: <strong>“Não vai cair no ENEM”</strong> e “Ora, pílulas”.</p>
+<div class="lesson"><b>Lição para a Terra Negra</b>Golpe de posicionamento: usa a negação do vestibular como isca para quem estuda para o vestibular. O quadro nomeado cria hábito.</div></div>
+<div class="comp"><div class="comp-top"><h3>Leitura ObrigaHISTÓRIA</h3><span class="comp-scale">271 mil inscritos</span></div>
+<p>Historiadores Icles Rodrigues e Luana Jalles + cientista social Mariane Pisani. Rigor historiográfico e correção de erro histórico.</p>
+<div class="lesson"><b>Lição para a Terra Negra</b>Ocupa a faixa “confiável” e cresce em cima do erro dos outros. É o concorrente mais próximo do território ScienceVlogs — disputa direta.</div></div>
+<div class="comp"><div class="comp-top"><h3>Descomplica</h3><span class="comp-scale">Operação comercial de grande porte</span></div>
+<p>Cobertura completa de História, Geografia, Sociologia e Filosofia, com narrativa e base teórica.</p>
+<div class="lesson"><b>Lição para a Terra Negra</b>Não dá para vencer no volume nem no SEO. Vence-se na profundidade e no campo.</div></div>
+<div class="comp"><div class="comp-top"><h3>História Online</h3><span class="comp-scale">Professores de cursinhos de SP</span></div>
+<p>Foco em Humanas, posicionamento por qualificação docente.</p>
+<div class="lesson"><b>Lição para a Terra Negra</b>Concorrente direto no argumento “nossos professores são melhores”. Esse território já está tomado — por isso a expedição importa tanto.</div></div>
+</section>
+<section id="arquetipos"><div class="sec-head"><span class="sec-num">§4</span><h2>Doze arquétipos estruturais</h2></div>
+<p class="sec-sub">Status: <strong>hipótese, não medição</strong> — ver §1. Antes deles, a gramática que é invariante em short-form educacional que performa.</p>
+<div class="prose">
+<p><strong>A regra dos 3 segundos.</strong> O primeiro frame carrega uma promessa ou uma anomalia. Não uma saudação, não um logo, não “fala galera”. Cada segundo de preâmbulo custa retenção que não volta.</p>
+<p><strong>O loop aberto.</strong> Uma pergunta abre cedo e só fecha no fim. Sem loop, o espectador sai no instante em que o interesse imediato é satisfeito.</p>
+<p><strong>Densidade de corte.</strong> Troca de enquadramento, zoom, texto ou B-roll a cada 2–4 segundos. Não é estética — é o que impede a atenção de derivar.</p>
+<p><strong>Uma ideia por peça.</strong> Short que ensina duas coisas não ensina nenhuma. A segunda ideia vira o próximo vídeo.</p>
+<p><strong>O texto na tela não repete a fala.</strong> Ele antecipa, contradiz ou nomeia. Repetir desperdiça o canal visual.</p>
+</div>
+<div class="arch-grid">
+<div class="arch"><span class="arch-id">A1</span><h4>Contradição de Autoridade</h4>
+<p class="sig">Assinatura próxima: Leitura ObrigaHISTÓRIA</p>
+<p class="why">Abre derrubando algo que o espectador acredita. A energia vem da dissonância — ele precisa saber se <em>ele</em> estava errado.</p>
+</div>
+<div class="arch"><span class="arch-id">A2</span><h4>Ancoragem em Evento</h4>
+<p class="sig">Assinatura próxima: Débora Aladim</p>
+<p class="why">Não cria demanda: captura demanda que já existe num pico. A busca já está acontecendo — você intercepta, não convence.</p>
+</div>
+<div class="arch"><span class="arch-id">A3</span><h4>Negação do Vestibular</h4>
+<p class="sig">Assinatura próxima: Eduardo Bueno</p>
+<p class="why">Usa a irrelevância declarada como isca. Remove a defesa do espectador: ele não está estudando, está ouvindo uma história.</p>
+</div>
+<div class="arch"><span class="arch-id">A4</span><h4>Micro-drama Encenado</h4>
+<p class="sig">Assinatura próxima: Se Liga Nessa História</p>
+<p class="why">Personagem, não explicação. O professor encarna em vez de narrar. Narrativa é o formato que o cérebro menos resiste.</p>
+</div>
+<div class="arch"><span class="arch-id">A5</span><h4>Autópsia de Erro</h4>
+<p class="sig">Assinatura próxima: — sem concorrente direto</p>
+<p class="why">Parte do erro do aluno, não do conteúdo. Medo de errar supera vontade de aprender no público de vestibular.</p>
+<span class="excl">Exclusivo Terra Negra</span>
+</div>
+<div class="arch"><span class="arch-id">A6</span><h4>Âncora de Campo</h4>
+<p class="sig">Assinatura próxima: — território livre</p>
+<p class="why">O lugar é o argumento. Impossível de replicar em estúdio; o padrão visual quebra o scroll sozinho.</p>
+<span class="excl">Exclusivo Terra Negra</span>
+</div>
+<div class="arch"><span class="arch-id">A7</span><h4>Compressão Temporal</h4>
+<p class="why">O contador é um loop mecânico. O espectador fica para ver acabar.</p>
+</div>
+<div class="arch"><span class="arch-id">A8</span><h4>Pergunta Primeiro</h4>
+<p class="why">Compromisso cognitivo: quem responde mentalmente precisa da confirmação. O mais barato de produzir.</p>
+</div>
+<div class="arch"><span class="arch-id">A9</span><h4>Conexão Improvável</h4>
+<p class="why">Curiosity gap puro. Exige as quatro disciplinas na mesma casa.</p>
+<span class="excl">Exclusivo Terra Negra</span>
+</div>
+<div class="arch"><span class="arch-id">A10</span><h4>Arsenal de Redação</h4>
+<p class="why">Utilidade imediata e salvável. Maior taxa de salvamento de todos os arquétipos.</p>
+<span class="excl">Exclusivo Terra Negra</span>
+</div>
+<div class="arch"><span class="arch-id">A11</span><h4>Mito Desmontado</h4>
+<p class="why">Corrige a cultura, não o espectador. Menos defensivo que A1, mais compartilhável.</p>
+</div>
+<div class="arch"><span class="arch-id">A12</span><h4>Contexto de Manchete</h4>
+<p class="why">Transforma notícia em aula sem parecer aula. Alto valor de repertório.</p>
+</div>
+</div>
+<h3 style="margin-top:40px">Matriz de decisão</h3>
+<div class="tblwrap"><table><thead><tr><th>ID</th><th>Arquétipo</th><th>Custo</th><th>Viralidade</th><th>Conversão</th><th>Exclusivo</th></tr></thead><tbody>
+<tr><td class="num">A1</td><td>Contradição de Autoridade</td><td><span class="tag t-lo">Baixo</span></td><td><span class="tag t-hi">Alta</span></td><td><span class="tag ">Média</span></td><td>—</td></tr>
+<tr><td class="num">A2</td><td>Ancoragem em Evento</td><td><span class="tag t-lo">Baixo</span></td><td><span class="tag t-hi">Muito alta</span></td><td><span class="tag t-hi">Alta</span></td><td>—</td></tr>
+<tr><td class="num">A3</td><td>Negação do Vestibular</td><td><span class="tag t-lo">Baixo</span></td><td><span class="tag t-hi">Muito alta</span></td><td><span class="tag t-lo">Baixa</span></td><td>—</td></tr>
+<tr><td class="num">A4</td><td>Micro-drama Encenado</td><td><span class="tag t-warn">Alto</span></td><td><span class="tag t-hi">Alta</span></td><td><span class="tag ">Média</span></td><td>—</td></tr>
+<tr><td class="num">A5</td><td>Autópsia de Erro</td><td><span class="tag t-lo">Baixo</span></td><td><span class="tag ">Média</span></td><td><span class="tag t-hi">Muito alta</span></td><td>✓</td></tr>
+<tr><td class="num">A6</td><td>Âncora de Campo</td><td><span class="tag ">Médio*</span></td><td><span class="tag t-hi">Muito alta</span></td><td><span class="tag ">Média</span></td><td>✓</td></tr>
+<tr><td class="num">A7</td><td>Compressão Temporal</td><td><span class="tag ">Médio</span></td><td><span class="tag t-hi">Alta</span></td><td><span class="tag t-lo">Baixa</span></td><td>—</td></tr>
+<tr><td class="num">A8</td><td>Pergunta Primeiro</td><td><span class="tag t-lo">Muito baixo</span></td><td><span class="tag ">Média</span></td><td><span class="tag t-hi">Alta</span></td><td>—</td></tr>
+<tr><td class="num">A9</td><td>Conexão Improvável</td><td><span class="tag t-lo">Baixo</span></td><td><span class="tag t-hi">Alta</span></td><td><span class="tag ">Média</span></td><td>✓</td></tr>
+<tr><td class="num">A10</td><td>Arsenal de Redação</td><td><span class="tag t-lo">Muito baixo</span></td><td><span class="tag ">Média</span></td><td><span class="tag t-hi">Muito alta</span></td><td>✓</td></tr>
+<tr><td class="num">A11</td><td>Mito Desmontado</td><td><span class="tag t-lo">Baixo</span></td><td><span class="tag t-hi">Alta</span></td><td><span class="tag t-lo">Baixa</span></td><td>—</td></tr>
+<tr><td class="num">A12</td><td>Contexto de Manchete</td><td><span class="tag t-lo">Baixo</span></td><td><span class="tag t-hi">Alta</span></td><td><span class="tag ">Média</span></td><td>—</td></tr>
+</tbody></table></div>
+<p style="margin-top:14px;font-size:13.5px;color:var(--ink-faint)">* A6 é de custo baixo se usar o acervo de expedição existente.</p>
+<div class="prose" style="margin-top:26px">
+<h3>Recomendação de portfólio</h3>
+<p><strong>40%</strong> em A5 + A8 + A10 — baixo custo, alta conversão. É o motor.<br>
+<strong>30%</strong> em A6 + A9 — a diferenciação que só vocês conseguem.<br>
+<strong>20%</strong> em A1 + A3 + A11 — alcance.<br>
+<strong>10%</strong> em A2 — reservado para as janelas de evento.</p>
+</div>
+</section>
+<section id="roteiros"><div class="sec-head"><span class="sec-num">§5</span><h2>Trinta e dois roteiros</h2></div>
+<p class="sec-sub">Cada peça traz arquétipo-base, disciplina, formato e o roteiro em beats com marcação de tempo. Falas entre aspas são para dizer literalmente; <em>[colchetes]</em> são direção visual.</p>
+<article class="script"><div class="script-head"><span class="script-id">01</span><h3>“Getúlio Vargas não foi deposto em 1945. Ele foi convidado a sair.”</h3>
+<div class="chips"><span class="chip arch-chip">A1</span><span class="chip disc">História</span><span class="chip">Reels/Shorts · 50s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Close, sem introdução]</em> “Getúlio não caiu em 1945. Os generais pediram. Com licença. Por escrito.”</div>
+<div class="bt">3–8s</div><div class="bx">“E você aprendeu ‘golpe’ porque é a palavra que cabe na apostila.”</div>
+<div class="bt">8–20s</div><div class="bx"><em>[Documento na tela]</em> O ultimato militar. Quem assinou, em que data.</div>
+<div class="bt">20–35s</div><div class="bx">“Vargas sai, volta em 1951 <strong>eleito</strong>, com votos. Um deposto não volta pelas urnas cinco anos depois.”</div>
+<div class="bt">35–45s</div><div class="bx">“O erro virou padrão porque ‘golpe’ explica em uma palavra o que a realidade só explica em três parágrafos.”</div>
+<div class="bt">45–50s</div><div class="bx">“Na prova, a banca cobra o processo. Nunca o rótulo.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>O rigor do selo ScienceVlogs é o que sustenta uma correção dessas.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">02</span><h3>“Eu estou no lugar onde o Brasil está virando deserto”</h3>
+<div class="chips"><span class="chip arch-chip">A6</span><span class="chip disc">Geografia</span><span class="chip">YouTube 3–4min + corte 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Plano aberto do solo rachado. SEM FALA.]</em> Texto: “Isto aqui era caatinga. Hoje é deserto.”</div>
+<div class="bt">3–8s</div><div class="bx">“Estou no sertão. Isto não é seca. Seca passa. Isto não volta.”</div>
+<div class="bt">8–25s</div><div class="bx"><em>[Aponta o solo]</em> “Vê a crosta? O solo perdeu a capacidade de reter água. Chove e a água escorre — não infiltra.”</div>
+<div class="bt">25–40s</div><div class="bx">“Isso chama desertificação. É a única forma de degradação do solo que o ENEM cobra com nome e sobrenome.”</div>
+<div class="bt">40–50s</div><div class="bx">“Não é o clima que faz isso sozinho. É o uso. Pastagem, lenha, irrigação errada.”</div>
+<div class="bt">50–60s</div><div class="bx">“Nenhuma foto de apostila mostra isso. Por isso a gente veio.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>Acervo de expedição. Insubstituível — nenhum concorrente de estúdio produz isto.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">03</span><h3>“80% erram esta questão de Filosofia. Sempre pelo mesmo motivo.”</h3>
+<div class="chips"><span class="chip arch-chip">A5</span><span class="chip disc">Filosofia</span><span class="chip">Shorts · 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Oito em cada dez erram essa. E erram todos na mesma alternativa.”</div>
+<div class="bt">3–10s</div><div class="bx"><em>[Questão sobre Sócrates na tela, legível]</em></div>
+<div class="bt">10–18s</div><div class="bx">“A letra que quase todo mundo marca diz que Sócrates <strong>ensinava</strong>. E parece certíssimo — ele é professor, né?”</div>
+<div class="bt">18–35s</div><div class="bx">“Não é. O método socrático é <strong>perguntar</strong>. Ele dizia não saber nada. Quem ‘ensina’ é o sofista — e Sócrates passou a vida brigando com eles.”</div>
+<div class="bt">35–50s</div><div class="bx">“Regra que resolve toda questão de Sócrates: se a alternativa diz que ele transmitia conhecimento, está errada. Ele extraía.”</div>
+<div class="bt">50–60s</div><div class="bx">“Salva esse vídeo. Você vai reencontrar essa pegadinha.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>Vinte anos de correção para saber <em>qual</em> alternativa o aluno marca. Não se compra esse dado.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">04</span><h3>“Isso não vai cair no ENEM: o imperador que declarou guerra a pássaros”</h3>
+<div class="chips"><span class="chip arch-chip">A3</span><span class="chip disc">História / Atualidades</span><span class="chip">Shorts · 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Isso não vai cair na sua prova. Zero chance.”</div>
+<div class="bt">3–10s</div><div class="bx">“Mas é o melhor exemplo de política pública dando errado que existe.”</div>
+<div class="bt">10–40s</div><div class="bx">A Grande Guerra dos Emus (Austrália, 1932): exército, metralhadora, emus vencem. <em>[B-roll de arquivo]</em></div>
+<div class="bt">40–50s</div><div class="bx">“Agora a virada: isso é intervenção estatal desastrada em ecossistema — exatamente o que o ENEM cobra em desequilíbrio ambiental.”</div>
+<div class="bt">50–60s</div><div class="bx">“Não cai a guerra. Cai o conceito. E agora você não esquece mais.”</div>
+</div>
+<div class="script-note"><b>Nota competitiva</b>Replica o golpe de posicionamento do Eduardo Bueno — com a ponte pedagógica que ele não faz.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">05</span><h3>“O que o TikTok tem a ver com a Escola de Frankfurt?”</h3>
+<div class="chips"><span class="chip arch-chip">A9</span><span class="chip disc">Filosofia + Sociologia</span><span class="chip">Reels · 55s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Split: logo do TikTok | foto de Adorno]</em> “O que isso tem a ver com isso?”</div>
+<div class="bt">3–8s</div><div class="bx">“Parece nada. É a mesma coisa, com 80 anos de diferença.”</div>
+<div class="bt">8–30s</div><div class="bx">“Adorno e Horkheimer criaram ‘indústria cultural’: cultura produzida em série, para padronizar gosto e desmobilizar. Eles falavam do rádio. Do cinema.”</div>
+<div class="bt">30–45s</div><div class="bx">“O algoritmo é a indústria cultural com dados. Ele não te dá o que você quer — ele te ensina a querer o que ele tem.”</div>
+<div class="bt">45–55s</div><div class="bx">“Repertório para redação sobre tecnologia, consumo, alienação e cultura. Quatro temas com um autor.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>Filosofia e Sociologia sob o mesmo teto. Canal monodisciplinar não faz essa ponte.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">06</span><h3>“Um repertório que salva QUALQUER redação: Milton Santos”</h3>
+<div class="chips"><span class="chip arch-chip">A10</span><span class="chip disc">Geografia + Redação</span><span class="chip">Shorts · 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Um autor. Qualquer tema de redação. Funciona sempre.”</div>
+<div class="bt">3–10s</div><div class="bx">“Milton Santos, geógrafo brasileiro. Conceito: globalização como fábula, perversidade e possibilidade.”</div>
+<div class="bt">10–25s</div><div class="bx">“Fábula: a globalização que te vendem — mundo conectado, todo mundo ganha. Perversidade: a real — concentra renda, aprofunda desigualdade. Possibilidade: a que poderia ser.”</div>
+<div class="bt">25–40s</div><div class="bx"><em>[3 cards]</em> “Tema de tecnologia? Fábula versus perversidade. Desigualdade? Perversidade. Meio ambiente? Perversidade. Proposta de intervenção? Possibilidade.”</div>
+<div class="bt">40–52s</div><div class="bx">“Frase pronta: ‘Como aponta Milton Santos, a globalização se apresenta como fábula, mas se realiza como perversidade.’”</div>
+<div class="bt">52–60s</div><div class="bx">“Salva. Você vai usar em novembro.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>Geógrafo brasileiro — casa com o DNA da marca. Maior taxa de salvamento do lote.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">07</span><h3>“350 anos de escravidão no Brasil em 60 segundos”</h3>
+<div class="chips"><span class="chip arch-chip">A7</span><span class="chip disc">História</span><span class="chip">Shorts · 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Trezentos e cinquenta anos. Sessenta segundos. Vai.”</div>
+<div class="bt">3–50s</div><div class="bx"><em>[Um corte por marco, data GRANDE na tela]</em> 1538 primeiro navio · 1550 engenho · 1695 Zumbi/Palmares · 1815 tráfico proibido no papel · 1850 Eusébio de Queirós · 1871 Ventre Livre · 1885 Sexagenários · 1888 Áurea</div>
+<div class="bt">50–60s</div><div class="bx">“Repara: cada lei ‘abolicionista’ liberta quem já não dava lucro. A Áurea não foi bondade. Foi o fim de um cálculo.”</div>
+</div>
+<div class="script-note crit"><b>Cuidado</b>Tema sensível. Exige rigor — é onde o selo ScienceVlogs precisa aparecer.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">08</span><h3>“Você saberia responder essa de Sociologia?”</h3>
+<div class="chips"><span class="chip arch-chip">A8</span><span class="chip disc">Sociologia</span><span class="chip">Shorts · 45s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Pergunta sozinha na tela, lida em voz alta]</em> “Para Durkheim, o que é um fato social?”</div>
+<div class="bt">3–6s</div><div class="bx">“Responde antes de eu falar. Sério, pausa.”</div>
+<div class="bt">6–12s</div><div class="bx">“Três candidatas: A) tudo que acontece na sociedade. B) o que é exterior ao indivíduo e exerce coerção. C) a opinião da maioria.”</div>
+<div class="bt">12–20s</div><div class="bx">“A é ampla demais. C é senso comum — Durkheim odiava senso comum.”</div>
+<div class="bt">20–35s</div><div class="bx">“B. Exterioridade, coercitividade, generalidade. A língua que você fala é fato social: você não escolheu, ela te precede, e te obriga.”</div>
+<div class="bt">35–45s</div><div class="bx">“Mesma lógica cai em anomia e solidariedade. Comenta se acertou.”</div>
+</div>
+<div class="script-note"><b>Sinal de algoritmo</b>O convite ao comentário é a razão de existir do último beat.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">09</span><h3>“Napoleão não era baixo”</h3>
+<div class="chips"><span class="chip arch-chip">A11</span><span class="chip disc">História</span><span class="chip">Shorts · 50s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Napoleão era baixinho?”</div>
+<div class="bt">3–6s</div><div class="bx">“Não. E a origem da mentira é melhor que a verdade.”</div>
+<div class="bt">6–20s</div><div class="bx">“1,68m — acima da média francesa da época. A confusão: pés franceses e ingleses tinham medidas diferentes.”</div>
+<div class="bt">20–40s</div><div class="bx">“E aí entra a propaganda: o cartunista inglês James Gillray desenhou ele como anão birrento por anos. Funcionou tão bem que virou termo de psicologia.”</div>
+<div class="bt">40–50s</div><div class="bx">“Isso é guerra de narrativa no século XIX — o conceito que o ENEM cobra quando fala em propaganda e construção de imagem.”</div>
+</div>
+<div class="script-note"><b>Por que compartilha</b>Corrige a cultura, não o espectador. Ninguém se sente burro.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">10</span><h3>“Essa manchete de hoje começou em 1884”</h3>
+<div class="chips"><span class="chip arch-chip">A12</span><span class="chip disc">Geografia + História</span><span class="chip">Reels · 55s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Manchete real recente sobre conflito na África na tela]</em></div>
+<div class="bt">3–8s</div><div class="bx">“Isso não começou este ano. Começou numa sala em Berlim, em 1884.”</div>
+<div class="bt">8–30s</div><div class="bx">“Conferência de Berlim: catorze países europeus dividiram a África com régua. Nenhum africano na sala. As fronteiras saíram retas — e fronteira reta é fronteira que ignora quem mora ali.”</div>
+<div class="bt">30–45s</div><div class="bx">“Povos inimigos no mesmo país. Povos irmãos separados. O conflito de hoje é a fatura de 1884.”</div>
+<div class="bt">45–55s</div><div class="bx">“Isso é neocolonialismo — um dos temas mais recorrentes da prova.”</div>
+</div>
+<div class="script-note"><b></b>Notícia vira aula. Repertório de altíssimo valor para redação.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">11</span><h3>“A prova acabou de sair. Vamos ler juntos AGORA.”</h3>
+<div class="chips"><span class="chip arch-chip">A2</span><span class="chip disc">Todas</span><span class="chip">Live + cortes · janela de 48h</span></div></div>
+<div class="beats">
+<div class="bt">0–2s</div><div class="bx"><em>[Prova FÍSICA na mão, na tela. O objeto é o hook]</em></div>
+<div class="bt">2–6s</div><div class="bx"><em>[Reação real ao abrir]</em> “Olha isso.”</div>
+<div class="bt">6–15s</div><div class="bx">“Caiu [tema]. E isso é atípico — não cai desde [ano].”</div>
+<div class="bt">15–40s</div><div class="bx">A leitura de especialista: por que a banca escolheu isso, o que sinaliza sobre a linha editorial do ano.</div>
+<div class="bt">40–55s</div><div class="bx">“Se caiu isso agora, o padrão para o ano que vem muda. Explico na Live de Revisão.”</div>
+<div class="bt">55–60s</div><div class="bx">CTA</div>
+</div>
+<div class="script-note crit"><b>Condição crítica</b>Publicar em <strong>horas</strong>, não dias. Fora da janela, o arquétipo morre. Terreno da Débora Aladim — diferencie pela leitura de banca: ela reage, vocês analisam. Quatro professores ao vivo é o que ela não tem.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">12</span><h3>“Maquiavel nunca disse ‘os fins justificam os meios’”</h3>
+<div class="chips"><span class="chip arch-chip">A1</span><span class="chip disc">Filosofia</span><span class="chip">Shorts · 50s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Maquiavel nunca escreveu essa frase. Nem uma vez.”</div>
+<div class="bt">3–8s</div><div class="bx">“Ela é atribuída a ele há 500 anos. Está em nenhuma página d’O Príncipe.”</div>
+<div class="bt">8–22s</div><div class="bx">“O que ele escreveu foi descrição, não receita: observou como príncipes <strong>realmente</strong> agem — não como deveriam. É o primeiro cientista político, não um conselheiro do mal.”</div>
+<div class="bt">22–38s</div><div class="bx">“A palavra que importa é <em>virtù</em>: capacidade de agir conforme a necessidade do momento. E <em>fortuna</em>: o acaso que você não controla.”</div>
+<div class="bt">38–50s</div><div class="bx">“Quem cita a frase falsa erra a questão. A banca cobra a separação entre política e moral — não uma frase de camiseta.”</div>
+</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">13</span><h3>“Estou na fronteira. Aqui a geopolítica é uma rua.”</h3>
+<div class="chips"><span class="chip arch-chip">A6</span><span class="chip disc">Geografia</span><span class="chip">YouTube 4min + corte 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Plano da linha de fronteira. Sem fala.]</em> Texto: “Dois países. Uma rua.”</div>
+<div class="bt">3–8s</div><div class="bx">“Deste lado, Brasil. Daquele, [país]. Mesma língua na feira, moeda diferente na loja.”</div>
+<div class="bt">8–25s</div><div class="bx"><em>[Caminha atravessando]</em> “Fronteira não é muro. É zona. E é aqui que se vê o que ‘território’ significa de verdade.”</div>
+<div class="bt">25–40s</div><div class="bx">“Cidades-gêmeas. Integração regional. Mercosul deixa de ser sigla e vira o preço do pão.”</div>
+<div class="bt">40–55s</div><div class="bx">“O ENEM cobra blocos econômicos como conceito. Aqui é o conceito andando.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>Insubstituível.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">14</span><h3>“A pergunta que derruba geral: Weber ou Marx?”</h3>
+<div class="chips"><span class="chip arch-chip">A8 + A9</span><span class="chip disc">Sociologia</span><span class="chip">Shorts · 55s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Weber e Marx olham a mesma fábrica. Enxergam coisas opostas. Você sabe qual é qual?”</div>
+<div class="bt">3–8s</div><div class="bx">“Isso cai todo ano. E a maioria troca os dois.”</div>
+<div class="bt">8–25s</div><div class="bx">“Marx: a estrutura econômica determina. Classe, meios de produção, luta. O motor é material.”</div>
+<div class="bt">25–40s</div><div class="bx">“Weber: a cultura também determina. A ética protestante ajudou a criar o capitalismo — ideia gerando economia, não só o contrário.”</div>
+<div class="bt">40–50s</div><div class="bx">“Macete: viu ‘classe’ e ‘material’ → Marx. Viu ‘ética’, ‘sentido’, ‘racionalização’ → Weber.”</div>
+<div class="bt">50–55s</div><div class="bx">“Salva. É a distinção mais cobrada de Sociologia.”</div>
+</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">15</span><h3>“Hannah Arendt explica por que gente comum faz coisa terrível”</h3>
+<div class="chips"><span class="chip arch-chip">A10</span><span class="chip disc">Filosofia + Redação</span><span class="chip">Shorts · 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“O repertório mais forte que existe para redação. E o mais mal usado.”</div>
+<div class="bt">3–12s</div><div class="bx">“Hannah Arendt cobriu o julgamento de Eichmann, organizador do Holocausto. Esperava um monstro. Encontrou um burocrata entediado.”</div>
+<div class="bt">12–28s</div><div class="bx">“Daí veio ‘banalidade do mal’: o mal não precisa de ódio. Precisa de gente que cumpre ordem sem pensar. Ele não odiava — ele preenchia formulário.”</div>
+<div class="bt">28–45s</div><div class="bx"><em>[3 cards]</em> “Serve em: violência institucional. Omissão do Estado. Discriminação estrutural. Sempre que o tema for ‘ninguém é responsável porque todo mundo só cumpria função’.”</div>
+<div class="bt">45–55s</div><div class="bx">“Frase: ‘Hannah Arendt alerta que o mal se banaliza quando o indivíduo abdica de pensar.’”</div>
+<div class="bt">55–60s</div><div class="bx">“O erro comum: usar só para nazismo. Ela serve para muito mais.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>O “erro comum” do último beat só existe com repertório de correção real.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">16</span><h3>“A Revolução Industrial começou porque os ingleses ficaram sem lenha”</h3>
+<div class="chips"><span class="chip arch-chip">A1</span><span class="chip disc">História + Geografia</span><span class="chip">Shorts · 55s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“A Revolução Industrial não começou por genialidade. Começou por falta de árvore.”</div>
+<div class="bt">3–10s</div><div class="bx">“Você aprendeu ‘avanço tecnológico’. A causa é mais banal.”</div>
+<div class="bt">10–28s</div><div class="bx">“A Inglaterra desmatou. Sem lenha, foi para o carvão. Carvão está embaixo da terra. Mina alaga. Precisa bombear. Bomba precisa de força → máquina a vapor.”</div>
+<div class="bt">28–42s</div><div class="bx">“Watt não inventou para revolucionar o mundo. Inventou para tirar água de buraco.”</div>
+<div class="bt">42–55s</div><div class="bx">“Isso é geografia determinando história — a chave de leitura que a banca adora.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>Conexão Geografia↔História que canal monodisciplinar não faz.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">17</span><h3>“Zumbi dos Palmares tinha um Estado. Com economia.”</h3>
+<div class="chips"><span class="chip arch-chip">A11</span><span class="chip disc">História</span><span class="chip">Shorts · 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Palmares não era esconderijo. Era Estado.”</div>
+<div class="bt">3–8s</div><div class="bx">“A escola te vendeu ‘refúgio de escravos fugidos’. É diminuição.”</div>
+<div class="bt">8–28s</div><div class="bx">“Palmares durou quase 100 anos. Agricultura excedente, comércio com vilas vizinhas, estrutura política, sucessão de lideranças, exército. Chegou a 20 mil pessoas.”</div>
+<div class="bt">28–45s</div><div class="bx">“Portugal mandou expedição atrás de expedição por décadas. Não se manda exército contra esconderijo — manda-se contra Estado rival.”</div>
+<div class="bt">45–60s</div><div class="bx">“A prova cobra resistência como <strong>projeto político</strong>, não como fuga. Quem entende isso não erra.”</div>
+</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">18</span><h3>“O agro que você vê no comercial e o agro do mapa”</h3>
+<div class="chips"><span class="chip arch-chip">A6 + A12</span><span class="chip disc">Geografia</span><span class="chip">YouTube 5min + cortes</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Campo real, plano aberto. Sem fala.]</em></div>
+<div class="bt">3–10s</div><div class="bx">“Estou dentro de uma lavoura de soja. Quero te mostrar o que o comercial não mostra — nem o contrário do comercial.”</div>
+<div class="bt">10–30s</div><div class="bx">“Isto aqui é produtividade real. Tecnologia de ponta, saldo de exportação. Nada disso é mentira.”</div>
+<div class="bt">30–50s</div><div class="bx"><em>[Muda de local]</em> “Agora quinze quilômetros adiante. Mata ciliar que não existe mais. Rio assoreado.”</div>
+<div class="bt">50–70s</div><div class="bx">“As duas coisas são verdade ao mesmo tempo. O ENEM não quer que você escolha um lado — quer que você descreva a contradição.”</div>
+<div class="bt">70–90s</div><div class="bx">“Fronteira agrícola, MATOPIBA, externalidade. Os três termos que caem.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>Campo + equilíbrio ScienceVlogs num tema politicamente carregado.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">19</span><h3>“Isso não vai cair no ENEM: o rei que morreu de indigestão de enguia”</h3>
+<div class="chips"><span class="chip arch-chip">A3</span><span class="chip disc">História</span><span class="chip">Shorts · 50s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Não vai cair. Prometo.”</div>
+<div class="bt">3–10s</div><div class="bx">“Mas explica melhor a Idade Média do que três capítulos de apostila.”</div>
+<div class="bt">10–35s</div><div class="bx">Henrique I da Inglaterra, 1135, <em>surfeit of lampreys</em>. A morte abre crise sucessória → A Anarquia, 19 anos de guerra civil.</div>
+<div class="bt">35–48s</div><div class="bx">“A virada: um reino inteiro entra em colapso porque não havia regra clara de sucessão. Isso é fragilidade do poder pessoal — o conceito central do feudalismo.”</div>
+<div class="bt">48–55s</div><div class="bx">“Não cai a enguia. Cai o motivo.”</div>
+</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">20</span><h3>“Por que 90% erram a questão de projeção cartográfica”</h3>
+<div class="chips"><span class="chip arch-chip">A5</span><span class="chip disc">Geografia</span><span class="chip">Shorts · 55s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Nove em cada dez erram essa. E é a mais fácil da prova.”</div>
+<div class="bt">3–10s</div><div class="bx"><em>[Questão com Mercator e Peters na tela]</em></div>
+<div class="bt">10–20s</div><div class="bx">“O aluno marca ‘Mercator distorce’. Certo. E erra mesmo assim.”</div>
+<div class="bt">20–35s</div><div class="bx">“Porque <strong>toda</strong> projeção distorce. É matemático: esfera não vira plano sem perda. A pergunta nunca é SE distorce — é O QUE ela escolheu preservar.”</div>
+<div class="bt">35–50s</div><div class="bx">“Mercator preserva ângulo — serve para navegar, incha o norte. Peters preserva área — achata as formas. Não existe mapa neutro: existe escolha política.”</div>
+<div class="bt">50–55s</div><div class="bx">“Guarda essa frase. Ela responde a questão inteira.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>Saber que o aluno acerta o raciocínio e erra a conclusão vem de correção real.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">21</span><h3>“Bauman em 60 segundos (e por que sua redação precisa dele)”</h3>
+<div class="chips"><span class="chip arch-chip">A10</span><span class="chip disc">Sociologia + Redação</span><span class="chip">Shorts · 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“O sociólogo mais citado na redação. E o mais mal citado.”</div>
+<div class="bt">3–12s</div><div class="bx">“Zygmunt Bauman: modernidade líquida. Sólido tem forma. Líquido não — assume a forma do vaso e escorre.”</div>
+<div class="bt">12–30s</div><div class="bx">“Antes: emprego para a vida, casamento para a vida, ideologia para a vida. Agora tudo é temporário, revisável, descartável. Inclusive vínculo humano.”</div>
+<div class="bt">30–45s</div><div class="bx"><em>[3 cards]</em> “Serve em: relações digitais. Consumo. Saúde mental. Trabalho por aplicativo.”</div>
+<div class="bt">45–55s</div><div class="bx">“Frase: ‘Na modernidade líquida descrita por Bauman, os laços se tornam tão descartáveis quanto os bens de consumo.’”</div>
+<div class="bt">55–60s</div><div class="bx">“O erro: escrever só ‘vivemos numa sociedade líquida’ e não explicar. A banca quer o conceito operando.”</div>
+</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">22</span><h3>“O que a Guerra Fria tem a ver com o preço do seu lanche?”</h3>
+<div class="chips"><span class="chip arch-chip">A9</span><span class="chip disc">História + Geografia</span><span class="chip">Reels · 55s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Split: míssil | hambúrguer]</em> “O que isso tem a ver com isso?”</div>
+<div class="bt">3–8s</div><div class="bx">“Mais do que você imagina.”</div>
+<div class="bt">8–30s</div><div class="bx">“Revolução Verde: EUA exportam pacote agrícola — semente melhorada, fertilizante, agrotóxico — para o Terceiro Mundo. Motivo declarado: acabar com a fome. Motivo real: fome gera revolução comunista.”</div>
+<div class="bt">30–45s</div><div class="bx">“O Brasil entra nesse pacote. O cerrado vira lavoura. A estrutura do agro brasileiro de hoje nasce de uma jogada geopolítica dos anos 60.”</div>
+<div class="bt">45–55s</div><div class="bx">“Guerra Fria não é só muro e espião. É a razão pela qual seu país planta o que planta.”</div>
+</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">23</span><h3>“Foucault: você é vigiado mesmo quando ninguém está olhando”</h3>
+<div class="chips"><span class="chip arch-chip">A10 + A9</span><span class="chip disc">Filosofia</span><span class="chip">Shorts · 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Foucault descreveu o feed de rede social em 1975.”</div>
+<div class="bt">3–12s</div><div class="bx">“Ele estudou o panóptico: prisão circular, torre no centro. O preso não sabe se está sendo observado naquele instante.”</div>
+<div class="bt">12–30s</div><div class="bx">“E aí está o pulo: ele se comporta como se estivesse. O poder não precisa vigiar sempre — precisa que você não saiba quando.”</div>
+<div class="bt">30–45s</div><div class="bx">“Você posta pensando em quem vai ver. Se autocensura. Ninguém te obrigou. Isso é poder disciplinar: você virou seu próprio vigia.”</div>
+<div class="bt">45–55s</div><div class="bx">“Serve em redação sobre privacidade, redes, saúde mental, segurança pública.”</div>
+<div class="bt">55–60s</div><div class="bx">“Frase: ‘Como analisa Foucault, o poder disciplinar opera pela internalização da vigilância.’”</div>
+</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">24</span><h3>Encenado: “A última noite de um senhor de engenho, 1888”</h3>
+<div class="chips"><span class="chip arch-chip">A4</span><span class="chip disc">História</span><span class="chip">YouTube 5min + corte 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[JÁ EM CENA. Luz de vela, professor de figurino, escrevendo.]</em></div>
+<div class="bt">3–10s</div><div class="bx"><em>[Primeira pessoa]</em> “Treze de maio. Disseram que assinaram no Rio. Cento e vinte pessoas nesta terra. Amanhã, nenhuma é minha.”</div>
+<div class="bt">10–35s</div><div class="bx">A cena avança — o cálculo econômico, não o moral. Quanto vale a terra sem trabalho cativo. A conta do imigrante europeu. <em>[Texto: “Engenho em Pernambuco · 13 de maio de 1888”]</em></div>
+<div class="bt">35–48s</div><div class="bx"><em>[QUEBRA DE PERSONAGEM. Luz normal.]</em> “Reparou que ele não falou de moral uma vez? Falou de custo.”</div>
+<div class="bt">48–60s</div><div class="bx">“A Abolição não indenizou ninguém que foi escravizado — mas os senhores pediram indenização. Isso explica o século XX brasileiro inteiro.”</div>
+</div>
+<div class="script-note crit"><b>Custo × retorno</b>O mais caro do lote e o de maior retorno. Formato-assinatura possível — mas só depois de validar os baratos.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">25</span><h3>“1 questão, 4 professores, 4 respostas”</h3>
+<div class="chips"><span class="chip arch-chip">A8 + formato exclusivo</span><span class="chip disc">Todas</span><span class="chip">YouTube 8min + 4 cortes</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Uma questão. Quatro professores. E eles discordam.”</div>
+<div class="bt">3–10s</div><div class="bx"><em>[Questão interdisciplinar na tela]</em></div>
+<div class="bt">10–25s</div><div class="bx">Geografia lê a questão pela ótica do território</div>
+<div class="bt">25–40s</div><div class="bx">História lê pelo processo</div>
+<div class="bt">40–55s</div><div class="bx">Filosofia lê pelo conceito</div>
+<div class="bt">55–70s</div><div class="bx">Sociologia lê pela estrutura</div>
+<div class="bt">70–85s</div><div class="bx">“A banca aceita mais de um caminho. O que ela não aceita é caminho sem fundamento.”</div>
+</div>
+<div class="script-note"><b>Por que é seu</b>Nenhum concorrente da lista tem as quatro cadeiras. Descomplica tem escala, não tem mesa. Bônus: rende 4 cortes verticais de um mesmo take.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">26</span><h3>“O Iluminismo defendia liberdade. E escravidão.”</h3>
+<div class="chips"><span class="chip arch-chip">A1</span><span class="chip disc">Filosofia + História</span><span class="chip">Shorts · 55s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Os mesmos filósofos que escreveram ‘todos os homens nascem livres’ tinham ações de companhia negreira.”</div>
+<div class="bt">3–10s</div><div class="bx">“Não é hipocrisia isolada. É estrutura.”</div>
+<div class="bt">10–30s</div><div class="bx">“Locke escreve sobre liberdade natural e investe na Royal African Company. Voltaire ironiza a escravidão e lucra com o comércio colonial.”</div>
+<div class="bt">30–45s</div><div class="bx">“Como? Porque ‘homem’ ali tinha fronteira. Universalismo com exceção — e a exceção era racial.”</div>
+<div class="bt">45–55s</div><div class="bx">“A banca cobra isso como contradição do liberalismo. Quem só decorou ‘Iluminismo = liberdade’ erra.”</div>
+</div>
+<div class="script-note crit"><b>Cuidado</b>Exige rigor. Território ScienceVlogs.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">27</span><h3>“Estou onde a cidade acaba e a favela começa. É a mesma rua.”</h3>
+<div class="chips"><span class="chip arch-chip">A6 + A12</span><span class="chip disc">Geografia + Sociologia</span><span class="chip">YouTube 4min</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Plano da divisa urbana. Sem fala.]</em></div>
+<div class="bt">3–10s</div><div class="bx">“Dez metros. De um lado, asfalto e saneamento. Do outro, nada disso. Mesma cidade, mesmo CEP quase.”</div>
+<div class="bt">10–30s</div><div class="bx">“Isso chama segregação socioespacial. Não é acidente — é resultado de decisão de investimento público, década após década.”</div>
+<div class="bt">30–50s</div><div class="bx">“Repara na infraestrutura: onde termina a rede de esgoto? A cidade formal desenha seu próprio limite.”</div>
+<div class="bt">50–65s</div><div class="bx">“Direito à cidade, de Henri Lefebvre. Serve de conceito de Geografia e de repertório de redação.”</div>
+</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">28</span><h3>“A questão que a banca repetiu 3 vezes em 10 anos”</h3>
+<div class="chips"><span class="chip arch-chip">A5 + dado próprio</span><span class="chip disc">Todas</span><span class="chip">Shorts · 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Essa mesma ideia caiu em [ano], [ano] e [ano]. Com roupa diferente.”</div>
+<div class="bt">3–15s</div><div class="bx"><em>[As três questões lado a lado]</em></div>
+<div class="bt">15–35s</div><div class="bx">“Muda o texto, muda o autor citado, muda o comando. O conceito é o mesmo: [conceito].”</div>
+<div class="bt">35–50s</div><div class="bx">“É assim que se estuda para banca — não por assunto, por <strong>padrão</strong>. A banca tem obsessões. Essa é uma delas.”</div>
+<div class="bt">50–60s</div><div class="bx">“Mapeamos as obsessões da banca no Sniper de Humanas.”</div>
+</div>
+<div class="script-note"><b>Ativo TN</b>Só quem tem acervo de 20 anos consegue afirmar isso. Maior conversão do lote.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">29</span><h3>“Cinco minutos antes da prova: o que revisar de Humanas”</h3>
+<div class="chips"><span class="chip arch-chip">A2 + utilidade</span><span class="chip disc">Todas</span><span class="chip">Shorts · 60s · véspera</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Faltam horas. Não abre apostila. Vê isso.”</div>
+<div class="bt">3–10s</div><div class="bx">“Cinco coisas que caem todo ano e você pode revisar agora.”</div>
+<div class="bt">10–50s</div><div class="bx"><em>[5 cards rápidos, 8s cada]</em> 1. Fato social (Durkheim) — exterior, coercitivo, geral · 2. Fábula/perversidade (Milton Santos) · 3. Banalidade do mal (Arendt) · 4. Toda projeção distorce — a pergunta é o que preserva · 5. Lei abolicionista liberta quem já não dá lucro</div>
+<div class="bt">50–60s</div><div class="bx">“Salva e revê antes de entrar. Boa prova.”</div>
+</div>
+<div class="script-note"><b>Timing</b>Publicar na véspera. Pico absoluto de busca e altíssimo salvamento.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">30</span><h3>“Por que Humanas é a área que mais derruba nota — e como virar o jogo”</h3>
+<div class="chips"><span class="chip arch-chip">A5 + manifesto</span><span class="chip disc">Todas</span><span class="chip">YouTube 6min + corte 60s</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx">“Humanas parece a área fácil. É onde mais gente perde vaga.”</div>
+<div class="bt">3–12s</div><div class="bx">“Porque ‘fácil’ vira ‘não preciso estudar’. E aí você chega na prova achando que opinião resolve.”</div>
+<div class="bt">12–30s</div><div class="bx">“Não resolve. A banca não quer o que você acha — quer o que o autor disse, o processo que aconteceu, o conceito que nomeia aquilo.”</div>
+<div class="bt">30–50s</div><div class="bx">“É a área com mais texto e menos tempo. Quem não treinou leitura rápida com repertório perde por relógio, não por burrice.”</div>
+<div class="bt">50–70s</div><div class="bx">“Humanas se estuda por padrão de banca e por repertório aplicado. Nós fazemos isso desde 2005.”</div>
+<div class="bt">70–80s</div><div class="bx">CTA: Sniper de Humanas</div>
+</div>
+<div class="script-note"><b>Papel</b>Peça de topo de funil com argumento de venda embutido. O vídeo-manifesto do posicionamento.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">31</span><h3>BÔNUS · “Reagindo à correção que viralizou (e está errada)”</h3>
+<div class="chips"><span class="chip arch-chip">A2 + A1</span><span class="chip disc">Todas</span><span class="chip">Reativo</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Print do post viral na tela]</em> “Isso aqui viralizou ontem. E está errado.”</div>
+<div class="bt">3–10s</div><div class="bx">“Não é implicância. A alternativa apontada não é a certa — e dá para provar.”</div>
+<div class="bt">10–35s</div><div class="bx">A refutação, com fonte e com o comando da questão na tela.</div>
+<div class="bt">35–50s</div><div class="bx">“Por que isso importa: se você decora a correção errada, erra na prova com confiança.”</div>
+<div class="bt">50–60s</div><div class="bx">“Na dúvida, checa a fonte. Sempre.”</div>
+</div>
+<div class="script-note crit"><b>Cuidado</b>Corrija a informação, nunca a pessoa. Sem nome, sem ironia. Território do Leitura ObrigaHISTÓRIA — disputável, com o selo ScienceVlogs autorizando o papel.</div>
+</article>
+<article class="script"><div class="script-head"><span class="script-id">32</span><h3>BÔNUS · “Os bastidores: como se grava uma aula de Humanas há 20 anos”</h3>
+<div class="chips"><span class="chip arch-chip">A6 aplicado à marca</span><span class="chip disc">Institucional</span><span class="chip">YouTube 5min</span></div></div>
+<div class="beats">
+<div class="bt">0–3s</div><div class="bx"><em>[Estúdio, câmeras, equipe montando]</em></div>
+<div class="bt">3–12s</div><div class="bx">“Setecentas aulas. Vinte anos. Quatro professores que se conhecem desde o presencial.”</div>
+<div class="bt">12–35s</div><div class="bx">Bastidores reais: preparação, discordância sobre como explicar, a decisão editorial.</div>
+<div class="bt">35–55s</div><div class="bx"><em>[Corta para arquivo de expedição]</em> “E às vezes a aula não é aqui. É no sertão, na fronteira, no que a gente foi ver de perto.”</div>
+<div class="bt">55–70s</div><div class="bx">“Não é canal de vídeo. É cursinho que resolveu filmar o mundo.”</div>
+</div>
+<div class="script-note"><b>Papel</b>Peça de marca. Constrói o fosso competitivo — mostra o que não é copiável.</div>
+</article>
+</section>
+<section id="plano"><div class="sec-head"><span class="sec-num">§6</span><h2>Primeiras quatro semanas</h2></div>
+<p class="sec-sub">Começar pelo que é barato e exclusivo, antes de investir em produção pesada. A semana 4 só acontece se as três anteriores derem sinal.</p>
+<div class="weeks">
+<div class="week"><b>Semana 1</b><div class="ids">03 · 06 · 08</div><p>Baixo custo, alta conversão. Testa o motor antes de qualquer investimento.</p></div>
+<div class="week"><b>Semana 2</b><div class="ids">02 · 13</div><p>Abre a veia de expedição com acervo existente. Mede se o diferencial visual performa.</p></div>
+<div class="week"><b>Semana 3</b><div class="ids">05 · 22 · 28</div><p>Conexão interdisciplinar e o dado de banca. Testa o argumento de venda.</p></div>
+<div class="week"><b>Semana 4</b><div class="ids">24 ou 25</div><p>Só com sinal das anteriores. Aqui entra a produção cara.</p></div>
+</div>
+<div class="prose" style="margin-top:30px">
+<h3>Fora do calendário</h3>
+<p>As peças <strong>11</strong> e <strong>29</strong> não entram em cronograma. Ficam prontas na gaveta e disparam no dia do evento — a 11 em horas, a 29 na véspera. Publicadas fora da janela, não funcionam.</p>
+<h3 style="margin-top:26px">O que medir para validar os arquétipos</h3>
+<p>Retenção aos 3s (o hook funcionou?), retenção aos 15s (o loop segurou?), taxa de salvamento — A5 e A10 devem liderar — e comentário por view, onde A8 deve liderar. <strong>Três peças por arquétipo antes de concluir qualquer coisa.</strong></p>
+</div>
+</section>
+<footer>
+<p><strong>Fontes:</strong>
+<a href="https://www.correiobraziliense.com.br/diversao-e-arte/2024/11/6980116-quem-e-debora-aladim-youtuber-que-viralizou-no-x-por-causa-do-enem.html">Débora Aladim — Correio Braziliense</a> ·
+<a href="https://www.itatiaia.com.br/brasil/2024/11/04/veja-quem-e-a-mineira-debora-aladim-youtuber-que-viralizou-por-causa-do-enem">Rádio Itatiaia</a> ·
+<a href="https://querobolsa.com.br/revista/11-canais-do-youtube-para-estudar-humanas-para-o-enem">Canais de Humanas — Quero Bolsa</a> ·
+<a href="https://querobolsa.com.br/revista/8-canais-do-youtube-para-quem-ama-historia">Canais de História — Quero Bolsa</a> ·
+<a href="https://terranegra.online/">Terra Negra</a> ·
+<a href="https://cursos.terranegra.online/info.aspx?page=quemsomos">Terra Negra — Quem somos</a></p>
+<p>Números de audiência conforme reportado pelas fontes na data da consulta. Os arquétipos do §4 são hipóteses não medidas — ver §1.</p>
+</footer>
+</div>

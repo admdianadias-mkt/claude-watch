@@ -15,4 +15,6 @@ Produzido **sem assistir aos vídeos**. O ambiente bloqueou todo o egress de red
 
 **Portanto:** o mapa de concorrentes vem de pesquisa web real (fontes citadas). Os arquétipos da Parte 2 são **inferidos**, não extraídos frame a frame — são hipóteses testáveis, não medições. A referência `thebranding.ai` não pôde ser consultada e não influenciou nada aqui.
 
+**Página navegável:** https://claude.ai/code/artifact/6f5ded18-97d4-4b3c-888e-c8969fa8eb5b
+
 Para converter as hipóteses em medição, rode `/watch` localmente — o prompt está no fim do `00-metodo-e-benchmark.md`.
