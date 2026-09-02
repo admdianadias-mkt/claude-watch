@@ -1,0 +1,12 @@
+{
+  "name": "ig-audit",
+  "version": "0.1.0",
+  "description": "Instagram Reels audit + scriptwriting kit. Reads real Reel metrics through the Windsor.ai connector, emits a visual audit, writes Reel scripts in your own voice, and schedules posts through Metricool.",
+  "author": {
+    "name": "taoufik"
+  },
+  "homepage": "https://github.com/taoufik123-collab/claude-watch",
+  "repository": "https://github.com/taoufik123-collab/claude-watch",
+  "license": "MIT",
+  "keywords": ["instagram", "reels", "audit", "scriptwriter", "hooks", "captions", "windsor", "apify", "metricool", "content-calendar", "social-media"]
+}

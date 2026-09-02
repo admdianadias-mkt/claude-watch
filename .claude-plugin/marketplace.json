@@ -16,6 +16,16 @@
       "source": "./",
       "category": "productivity",
       "homepage": "https://github.com/taoufik123-collab/claude-watch"
+    },
+    {
+      "name": "ig-audit",
+      "description": "Instagram Reels audit + scriptwriting kit. /ig-audit reads your real Reel metrics through Windsor.ai and emits a visual audit; /ig-scripts turns it into 3 ready-to-film scripts in your voice; /ig-niche, /ig-calendar, /ig-hook, /ig-caption and /ig-schedule cover research, planning and posting.",
+      "author": {
+        "name": "taoufik"
+      },
+      "source": "./plugins/ig-audit",
+      "category": "productivity",
+      "homepage": "https://github.com/taoufik123-collab/claude-watch"
     }
   ]
 }
